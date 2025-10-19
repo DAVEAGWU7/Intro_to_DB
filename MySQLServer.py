@@ -7,7 +7,7 @@ try:
     connection = mysql.connector.connect(
         host='localhost',
         user='root',
-        password=''  # <-- put your MySQL password here if you set one
+        password=''  # Change this if you have a password
     )
 
     if connection.is_connected():
@@ -19,8 +19,10 @@ except Error as e:
     print(f"Error while connecting to MySQL: {e}")
 
 finally:
-    if connection.is_connected():
-        cursor.close()
-        connection.close()
-        # Print this to confirm connection closed
-        print("MySQL connection is closed.")
+    try:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            print("MySQL connection is closed.")
+    except NameError:
+        pass
